@@ -1,0 +1,104 @@
+[
+  {
+    "scale": "small",
+    "stop_times": 8640,
+    "redis_load_ms": 79.7,
+    "mongo_load_ms": 258.7,
+    "redis_mem_mb": 2.2,
+    "mongo_storage_mb": 0.4,
+    "queries": {
+      "stopLookup": {
+        "redis_p50": 0.0827,
+        "mongo_p50": 0.0835
+      },
+      "stopsNearby": {
+        "redis_p50": 0.0863,
+        "mongo_p50": 0.7632
+      },
+      "departuresAtStop": {
+        "redis_p50": 0.0788,
+        "mongo_p50": 0.1088
+      },
+      "tripSchedule": {
+        "redis_p50": 0.0813,
+        "mongo_p50": 0.1165
+      },
+      "routesServingStop": {
+        "redis_p50": 0.0765,
+        "mongo_p50": 0.1528
+      },
+      "directTrips": {
+        "redis_p50": 2.0921,
+        "mongo_p50": 1.9184
+      }
+    }
+  },
+  {
+    "scale": "medium",
+    "stop_times": 80000,
+    "redis_load_ms": 581.2,
+    "mongo_load_ms": 786.7,
+    "redis_mem_mb": 13.5,
+    "mongo_storage_mb": 2.7,
+    "queries": {
+      "stopLookup": {
+        "redis_p50": 0.0838,
+        "mongo_p50": 0.0825
+      },
+      "stopsNearby": {
+        "redis_p50": 0.0836,
+        "mongo_p50": 0.8052
+      },
+      "departuresAtStop": {
+        "redis_p50": 0.088,
+        "mongo_p50": 0.1158
+      },
+      "tripSchedule": {
+        "redis_p50": 0.0853,
+        "mongo_p50": 0.1568
+      },
+      "routesServingStop": {
+        "redis_p50": 0.0865,
+        "mongo_p50": 0.1885
+      },
+      "directTrips": {
+        "redis_p50": 3.6842,
+        "mongo_p50": 2.1814
+      }
+    }
+  },
+  {
+    "scale": "large",
+    "stop_times": 345600,
+    "redis_load_ms": 2625.2,
+    "mongo_load_ms": 2665.4,
+    "redis_mem_mb": 52.9,
+    "mongo_storage_mb": 10.6,
+    "queries": {
+      "stopLookup": {
+        "redis_p50": 0.0867,
+        "mongo_p50": 0.0884
+      },
+      "stopsNearby": {
+        "redis_p50": 0.0892,
+        "mongo_p50": 0.8047
+      },
+      "departuresAtStop": {
+        "redis_p50": 0.0843,
+        "mongo_p50": 0.1103
+      },
+      "tripSchedule": {
+        "redis_p50": 0.0744,
+        "mongo_p50": 0.1627
+      },
+      "routesServingStop": {
+        "redis_p50": 0.083,
+        "mongo_p50": 0.2623
+      },
+      "directTrips": {
+        "redis_p50": 2.5509,
+        "mongo_p50": 2.3206
+      }
+    }
+  }
+]

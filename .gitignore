@@ -1,0 +1,8 @@
+node_modules/
+.env
+.DS_Store
+*.log
+
+# local server state (data + pid files), not committed
+.runtime/
+data/gtfs/*.txt

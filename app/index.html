@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTFS Trip Planner</title>
+<style>
+  :root { --bg:#fff; --fg:#111827; --mut:#6b7280; --line:#e5e7eb; --accent:#c2410c; --panel:#f9fafb; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0b0f14; --fg:#e5e7eb; --mut:#9ca3af; --line:#1f2937; --accent:#fb923c; --panel:#111827; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font:14px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+  .wrap { max-width: 880px; margin:0 auto; padding:24px 16px 48px; }
+  h1 { font-size:22px; margin:0 0 4px; }
+  p.sub { color:var(--mut); margin:0 0 24px; }
+  fieldset { border:1px solid var(--line); border-radius:10px; padding:16px; margin:0 0 16px; background:var(--panel); }
+  legend { padding:0 6px; font-weight:600; color:var(--accent); }
+  label { display:block; font-size:12px; color:var(--mut); margin-bottom:4px; }
+  .row { display:flex; flex-wrap:wrap; gap:12px; align-items:end; }
+  .row > div { flex:1 1 140px; min-width:0; }
+  input, select { width:100%; padding:8px 10px; border:1px solid var(--line);
+                  border-radius:8px; background:var(--bg); color:var(--fg); font:inherit; }
+  button { padding:9px 16px; border:0; border-radius:8px; background:var(--accent);
+           color:#fff; font-weight:600; cursor:pointer; }
+  button:hover { filter:brightness(1.08); }
+  pre { background:var(--panel); border:1px solid var(--line); border-radius:10px;
+        padding:14px; overflow-x:auto; font-size:12.5px; max-height:380px; }
+  .meta { color:var(--mut); font-size:12px; margin:8px 0 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>GTFS Trip Planner</h1>
+  <p class="sub">Same queries, either engine. Each response reports its own query time.</p>
+
+  <fieldset>
+    <legend>Engine</legend>
+    <div class="row">
+      <div>
+        <label for="engine">Database</label>
+        <select id="engine"><option value="redis">Redis</option><option value="mongo">MongoDB</option></select>
+      </div>
+      <div>
+        <label for="after">Depart after</label>
+        <input id="after" value="12:00:00">
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Stops near a point</legend>
+    <div class="row">
+      <div><label for="lat">Latitude</label><input id="lat" value="-1.286389"></div>
+      <div><label for="lon">Longitude</label><input id="lon" value="36.817223"></div>
+      <div><label for="radius">Radius (m)</label><input id="radius" value="1500"></div>
+      <div style="flex:0 0 auto"><button onclick="nearby()">Search</button></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Next departures</legend>
+    <div class="row">
+      <div><label for="stop">Stop ID</label><input id="stop" value="S00000"></div>
+      <div style="flex:0 0 auto"><button onclick="departures()">Show</button></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Plan a trip</legend>
+    <div class="row">
+      <div><label for="from">From stop</label><input id="from" value="S00000"></div>
+      <div><label for="to">To stop</label><input id="to" value="S00005"></div>
+      <div style="flex:0 0 auto"><button onclick="plan()">Plan</button></div>
+    </div>
+  </fieldset>
+
+  <pre id="out">Results appear here.</pre>
+  <p class="meta" id="meta"></p>
+</div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const base = () => `engine=${$('engine').value}&after=${encodeURIComponent($('after').value)}`;
+
+  async function hit(path) {
+    $('out').textContent = 'Loading...';
+    try {
+      const r = await fetch(path);
+      const j = await r.json();
+      $('out').textContent = JSON.stringify(j.data ?? j, null, 2);
+      $('meta').textContent = j.query
+        ? `${j.engine} - ${j.query} - ${j.took_ms} ms - ${Array.isArray(j.data) ? j.data.length : 1} result(s)`
+        : '';
+    } catch (e) {
+      $('out').textContent = 'Request failed: ' + e.message;
+      $('meta').textContent = '';
+    }
+  }
+
+  const nearby = () => hit(`/api/nearby?${base()}&lat=${$('lat').value}&lon=${$('lon').value}&radius=${$('radius').value}`);
+  const departures = () => hit(`/api/departures?${base()}&stop=${$('stop').value}`);
+  const plan = () => hit(`/api/plan?${base()}&from=${$('from').value}&to=${$('to').value}`);
+</script>
+</body>
+</html>

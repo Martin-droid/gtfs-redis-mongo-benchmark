@@ -1,0 +1,24 @@
+{
+  "name": "gtfs-redis-mongo-benchmark",
+  "version": "1.0.0",
+  "description": "Application-based benchmarking of Redis and MongoDB for trip planning using GTFS data",
+  "type": "module",
+  "main": "src/bench/run.js",
+  "scripts": {
+    "servers:start": "bash scripts/start-servers.sh",
+    "servers:stop": "bash scripts/stop-servers.sh",
+    "generate": "node src/gtfs/generate.js",
+    "load": "node src/bench/load.js",
+    "bench": "node src/bench/run.js",
+    "bench:scale": "node src/bench/scale.js",
+    "app": "node app/server.js",
+    "all": "npm run generate && npm run bench"
+  },
+  "keywords": ["gtfs", "redis", "mongodb", "benchmark", "trip-planning", "nosql"],
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^6.21.0",
+    "redis": "^5.9.0"
+  },
+  "engines": { "node": ">=18" }
+}

@@ -1,0 +1,184 @@
+{
+  "generated_at": "2026-09-27T14:23:33.004Z",
+  "node": "v26.7.0",
+  "platform": "darwin/arm64",
+  "scale": "large",
+  "feed": {
+    "scale": "large",
+    "agencies": 1,
+    "stops": 1296,
+    "routes": 90,
+    "trips": 10800,
+    "stop_times": 345600
+  },
+  "bench": {
+    "warmup": 150,
+    "iterations": 1200
+  },
+  "ingestion": {
+    "redis_ms": 2625.2,
+    "mongo_ms": 2665.4,
+    "redis_rows_per_sec": 131648,
+    "mongo_rows_per_sec": 129660
+  },
+  "footprint": {
+    "redis_used_memory_bytes": 55421312,
+    "mongo_data_size_bytes": 63389760,
+    "mongo_storage_size_bytes": 16384,
+    "mongo_index_size_bytes": 11059200
+  },
+  "equivalence": [
+    {
+      "query": "stopLookup",
+      "redis_results": 1,
+      "mongo_results": 1,
+      "agree": true
+    },
+    {
+      "query": "departuresAtStop",
+      "redis_results": 10,
+      "mongo_results": 10,
+      "agree": true
+    },
+    {
+      "query": "tripSchedule",
+      "redis_results": 32,
+      "mongo_results": 32,
+      "agree": true
+    }
+  ],
+  "queries": [
+    {
+      "query": "stopLookup",
+      "iterations": 1200,
+      "redis": {
+        "n": 1200,
+        "mean_ms": 0.091,
+        "p50_ms": 0.0867,
+        "p95_ms": 0.1257,
+        "p99_ms": 0.1688,
+        "max_ms": 0.4063,
+        "ops_per_sec": 10994
+      },
+      "mongo": {
+        "n": 1200,
+        "mean_ms": 0.0993,
+        "p50_ms": 0.0884,
+        "p95_ms": 0.1512,
+        "p99_ms": 0.2502,
+        "max_ms": 1.1164,
+        "ops_per_sec": 10071
+      }
+    },
+    {
+      "query": "stopsNearby",
+      "iterations": 1200,
+      "redis": {
+        "n": 1200,
+        "mean_ms": 0.0907,
+        "p50_ms": 0.0892,
+        "p95_ms": 0.1022,
+        "p99_ms": 0.1173,
+        "max_ms": 0.4346,
+        "ops_per_sec": 11030
+      },
+      "mongo": {
+        "n": 1200,
+        "mean_ms": 0.8297,
+        "p50_ms": 0.8047,
+        "p95_ms": 0.9834,
+        "p99_ms": 1.2204,
+        "max_ms": 2.325,
+        "ops_per_sec": 1205
+      }
+    },
+    {
+      "query": "departuresAtStop",
+      "iterations": 1200,
+      "redis": {
+        "n": 1200,
+        "mean_ms": 0.0878,
+        "p50_ms": 0.0843,
+        "p95_ms": 0.1191,
+        "p99_ms": 0.143,
+        "max_ms": 0.1936,
+        "ops_per_sec": 11384
+      },
+      "mongo": {
+        "n": 1200,
+        "mean_ms": 0.1132,
+        "p50_ms": 0.1103,
+        "p95_ms": 0.1556,
+        "p99_ms": 0.1893,
+        "max_ms": 0.4755,
+        "ops_per_sec": 8833
+      }
+    },
+    {
+      "query": "tripSchedule",
+      "iterations": 1200,
+      "redis": {
+        "n": 1200,
+        "mean_ms": 0.0802,
+        "p50_ms": 0.0744,
+        "p95_ms": 0.1089,
+        "p99_ms": 0.1266,
+        "max_ms": 0.1476,
+        "ops_per_sec": 12475
+      },
+      "mongo": {
+        "n": 1200,
+        "mean_ms": 0.1698,
+        "p50_ms": 0.1627,
+        "p95_ms": 0.2387,
+        "p99_ms": 0.3457,
+        "max_ms": 0.6185,
+        "ops_per_sec": 5891
+      }
+    },
+    {
+      "query": "routesServingStop",
+      "iterations": 1200,
+      "redis": {
+        "n": 1200,
+        "mean_ms": 0.0878,
+        "p50_ms": 0.083,
+        "p95_ms": 0.1154,
+        "p99_ms": 0.1529,
+        "max_ms": 0.713,
+        "ops_per_sec": 11393
+      },
+      "mongo": {
+        "n": 1200,
+        "mean_ms": 0.292,
+        "p50_ms": 0.2623,
+        "p95_ms": 0.5794,
+        "p99_ms": 0.7685,
+        "max_ms": 0.9304,
+        "ops_per_sec": 3424
+      }
+    },
+    {
+      "query": "directTrips",
+      "iterations": 300,
+      "redis": {
+        "n": 300,
+        "mean_ms": 2.304,
+        "p50_ms": 2.5509,
+        "p95_ms": 4.38,
+        "p99_ms": 6.7814,
+        "max_ms": 7.2593,
+        "ops_per_sec": 434
+      },
+      "mongo": {
+        "n": 300,
+        "mean_ms": 2.1932,
+        "p50_ms": 2.3206,
+        "p95_ms": 3.4136,
+        "p99_ms": 3.7703,
+        "max_ms": 5.8242,
+        "ops_per_sec": 456
+      }
+    }
+  ]
+}
